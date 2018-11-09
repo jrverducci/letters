@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 function create(data){
-    let url = "/api/users";
+    let url = "node/server.js/api/users";
     const config = {
         method: 'POST',
         data: data

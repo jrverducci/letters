@@ -1,5 +1,6 @@
 .Home {
-  text-align: center;
+  background-color: #282c34;
+  text-align: center
 }
 
 .Home-logo {
@@ -18,9 +19,6 @@
   color: white;
 }
 
-.Home-link {
-  color: #61dafb;
-}
 
 @keyframes App-logo-spin {
   from {

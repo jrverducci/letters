@@ -6,6 +6,8 @@ import LogIn from "./components/login";
 import LandingPage from "./components/landingPage";
 import NewLetter from "./components/newLetter";
 import LetterList from "./components/letterList";
+import TrackSanta from "./components/trackSanta";
+import LetterSent from "./components/letterSent";
 
 
 const AppRouter = () => (
@@ -17,6 +19,8 @@ const AppRouter = () => (
       <Route path="/" exact component={LandingPage} />
       <Route path="/letter" exact component={NewLetter} />
       <Route path="/letter/list" exact component={LetterList} />
+      <Route path="/tracker" exact component={TrackSanta} />
+      <Route path="/letter/sent" exact component={LetterSent} />
     </React.Fragment>
   </Router>
 );

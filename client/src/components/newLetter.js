@@ -26,7 +26,7 @@ class NewLetter extends Component {
     }
 
     onSubmit(){
-        this.props.history.push('/letter/list')
+        this.props.history.push('/letter/sent')
     }
 
   render() {
