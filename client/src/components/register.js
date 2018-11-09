@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Button, InputGroup, Glyphicon, ButtonToolbar } from 'react-bootstrap';
-import * as validation from "../utils/validation"
+import * as validation from "../utils/validation";
+import * as usersServices from "../services/usersServices";
 
 class Register extends Component {
     constructor(props){
@@ -73,6 +74,16 @@ class Register extends Component {
 
     onRegister(){
         console.log('register clicked')
+        const data = {
+            firstName: this.state.firstName.value,
+            lastName: this.state.lastName.value,
+            email: this.state.email.value,
+            password: this.state.password.value
+        }
+        usersServices.create(data)
+        .then((response) => 
+            console.log(response))
+        .catch(console.log)    
     }
 
   render() {
@@ -156,8 +167,8 @@ class Register extends Component {
       </form>
       <div className="row">
       <ButtonToolbar>
-            <Button bsStyle="danger" bsSize="large" onClick={this.onRegister}>Register</Button>
-            <Button bsStyle="success" bsSize="large" onClick={this.goBack}>Go Back</Button>
+            <Button bsStyle="success" bsSize="large" onClick={this.onRegister}>Register</Button>
+            <Button bsStyle="danger" bsSize="large" onClick={this.goBack}>Go Back</Button>
     </ButtonToolbar>
       </div>
       </div>

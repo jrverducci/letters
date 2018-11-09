@@ -1,37 +1,36 @@
 import React, { Component } from 'react';
 import './Home.css';
+import Snowstorm from 'react-snowstorm';
 import {Button, ButtonToolbar} from 'react-bootstrap';
 
 class Home extends Component {
     constructor(props){
         super(props)
-        this.onRegister = this.onRegister.bind(this);
-        this.onLogIn = this.onLogIn.bind(this);
+        this.onWrite = this.onWrite.bind(this);
+        this.onFind = this.onFind.bind(this);
     }
 
-    onRegister(){
-        this.props.history.push("/register")
+    onWrite() {
+        this.props.history.push('/letter')
     }
 
-    onLogIn(){
-        this.props.history.push("/login")
+    onFind() {
+        this.props.history.push('/letter/list')
     }
 
   render() {
     return (
       <div className="Home">
-        <header className="Home-header">
+      <Snowstorm></Snowstorm>
+        <div className="Home-header">
         <h1>
-            Letters To Santa
+            (Letters To Santa) need font ideas
           </h1>
-          <img src="http://res.freestockphotos.biz/pictures/17/17382-illustration-of-a-red-santa-hat-pv.png" className="Home-logo" alt="logo" />
-          <div className="row">
           <ButtonToolbar>
-          <Button bsStyle="danger" bsSize="large" onClick={this.onRegister}>Register</Button>
-          <Button bsStyle="success" bsSize="large" onClick={this.onLogIn}>Log In</Button>
+          <Button bsStyle="success" bsSize="large" onClick={this.onWrite}>Write New Letter</Button>
+          <Button bsStyle="danger" bsSize="large" onClick={this.onFind}>Find Old Letter</Button>
           </ButtonToolbar>
-          </div>
-        </header>
+        </div>
       </div>
     );
   }

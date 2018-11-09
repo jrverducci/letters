@@ -1,13 +1,18 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const routes = require('./routes')
+
+const port = process.env.PORT || 8080;
 
 app.use(bodyParser.json())
 
-app.use(function(req, res){
-    res.send("testing")
-})
+app.use('node/server.js', routes);
 
-app.listen(8181, () => {
-    console.log('listening on port 8181')
+app.use((req, res) => {
+  res.status(404).send("<h2>The path is not valid</h2>");
+});
+
+app.listen(port, () => {
+    console.log(`Magic happens on port ${port}`)
 })
