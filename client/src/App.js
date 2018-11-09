@@ -1,19 +1,18 @@
-import React, { Component } from 'react';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Home from "./components/home";
+import Register from "./components/register";
+import LogIn from "./components/login";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src="http://res.freestockphotos.biz/pictures/17/17382-illustration-of-a-red-santa-hat-pv.png" className="App-logo" alt="logo" />
-          <p>
-            Letters To Santa
-          </p>
-        </header>
-      </div>
-    );
-  }
-}
 
-export default App;
+const AppRouter = () => (
+  <Router>
+    <React.Fragment>
+      <Route path="/" exact component={Home} />
+      <Route path="/register" component={Register} />
+      <Route path="/login" component={LogIn} />
+    </React.Fragment>
+  </Router>
+);
+
+export default AppRouter;
