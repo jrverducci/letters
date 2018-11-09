@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 function create(data){
-    let url = "/api/users";
+    let url = "/api/letters";
     const config = {
         method: 'POST',
         data: data
@@ -12,14 +12,14 @@ function create(data){
 } 
 
 function getAll(){
-    let url = "/api/users";
+    let url = "/api/letters";
     const config = {
         method: 'GET'
     }
     return axios(url, config)
         .then(responseSuccessHandler)
         .catch(responseErrorHandler)
-} 
+}
 
 const responseSuccessHandler = response => {
     console.log(response);
