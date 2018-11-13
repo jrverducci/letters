@@ -73,7 +73,6 @@ class Register extends Component {
     }
 
     onRegister(){
-        console.log('register clicked')
         const data = {
             firstName: this.state.firstName.value,
             lastName: this.state.lastName.value,
@@ -83,6 +82,9 @@ class Register extends Component {
         usersServices.create(data)
         .then((response) => 
             console.log(response))
+        .then(()=>{
+            this.props.history.push('/login')
+        })
         .catch(console.log)    
     }
 
@@ -103,7 +105,7 @@ class Register extends Component {
             placeholder="Enter Parent's First Name"
             onChange={this.handleChange}
           />
-          {this.state.firstName.input && !validation.name(this.state.firstName.value) ? <HelpBlock>Name must be between 3-50 characters.</HelpBlock> : null}
+          {this.state.firstName.input && !validation.name(this.state.firstName.value) ? <HelpBlock style={{fontSize: '12px'}}>Name must be between 3-50 characters.</HelpBlock> : null}
         </FormGroup>
         <FormGroup validationState={this.state.lastName.input && (validation.name(this.state.lastName.value) ? "success" : "error")}>          
         <ControlLabel>PARENT Last Name</ControlLabel>
@@ -114,7 +116,7 @@ class Register extends Component {
             placeholder="Enter Parent's Last Name"
             onChange={this.handleChange}
           />
-          {this.state.lastName.input && !validation.name(this.state.lastName.value) ? <HelpBlock>Name must be between 3-50 characters.</HelpBlock> : null}
+          {this.state.lastName.input && !validation.name(this.state.lastName.value) ? <HelpBlock style={{fontSize: '12px'}}>Name must be between 3-50 characters.</HelpBlock> : null}
         </FormGroup>
         <FormGroup validationState={this.state.email.input && (validation.email(this.state.email.value) ? "success" : "error")}>
           <ControlLabel>PARENT Email</ControlLabel>
@@ -125,7 +127,7 @@ class Register extends Component {
             placeholder="Enter Parent's Email"
             onChange={this.handleChange}
           />
-          {this.state.email.input && !validation.email(this.state.email.value) ? <HelpBlock>Enter Valid Email.</HelpBlock> : null}
+          {this.state.email.input && !validation.email(this.state.email.value) ? <HelpBlock style={{fontSize: '12px'}}>Enter Valid Email.</HelpBlock> : null}
         </FormGroup>
         
         <FormGroup validationState={this.state.password.input && (validation.password(this.state.password.value) ? "success" : "error")}>
@@ -145,7 +147,7 @@ class Register extends Component {
           {this.state.passwordType === "password" ? <Glyphicon glyph="eye-open" bsStyle="success" bsSize="xsmall" onClick={this.show} /> : <Glyphicon glyph="eye-close" bsStyle="danger" bsSize="xsmall" onClick={this.hide} /> }
       </InputGroup.Addon>
       </InputGroup>
-          {this.state.password.input && !validation.password(this.state.password.value) ? <HelpBlock>Must contain at least 1 number and 1 symbol</HelpBlock> : null}
+          {this.state.password.input && !validation.password(this.state.password.value) ? <HelpBlock style={{fontSize: '10px'}}>Must contain at least 1 number and 1 symbol</HelpBlock> : null}
         
         </FormGroup>
         <FormGroup validationState={this.state.passwordConfirm.input && (validation.passwordConfirm(this.state.password.value, this.state.passwordConfirm.value) ? "success" : "error")}>
@@ -162,7 +164,8 @@ class Register extends Component {
           <InputGroup.Addon>
           {this.state.passwordConfirmType === "password" ? <Glyphicon glyph="eye-open" bsStyle="success" bsSize="xsmall" onClick={this.showConfirm} /> : <Glyphicon glyph="eye-close" bsStyle="danger" bsSize="xsmall" onClick={this.hideConfirm} /> }
       </InputGroup.Addon>
-       </InputGroup>   
+       </InputGroup> 
+       {this.state.passwordConfirm.input && !validation.passwordConfirm(this.state.password.value, this.state.passwordConfirm.value) ? <HelpBlock style={{fontSize: '12px'}}>Must match password</HelpBlock> : null}  
        </FormGroup>
       </form>
       <div className="row">

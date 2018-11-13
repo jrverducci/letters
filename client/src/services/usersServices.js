@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 function create(data){
-    let url = "node/server.js/api/users";
+    let url = "/node/server.js/api/users";
     const config = {
         method: 'POST',
         data: data
@@ -12,7 +12,7 @@ function create(data){
 } 
 
 function getAll(){
-    let url = "/api/users";
+    let url = "/node/server.js/api/users";
     const config = {
         method: 'GET'
     }
@@ -21,8 +21,18 @@ function getAll(){
         .catch(responseErrorHandler)
 } 
 
+function getById(id){
+    let url = "/node/server.js/api/users/" + id;
+    const config = {
+        method: 'GET'
+    }
+    return axios(url, config)
+        .then(responseSuccessHandler)
+        .catch(responseErrorHandler)
+}
+
 function update(id, data){
-    let url = "node/server.js/api/users/" + id;
+    let url = "/node/server.js/api/users/" + id;
     const config = {
         method: 'PUT',
         data: data
@@ -31,6 +41,16 @@ function update(id, data){
         .then(responseSuccessHandler)
         .catch(responseErrorHandler)
 } 
+
+function del(id){
+    let url = "/node/server.js/api/users/" + id;
+    const config = {
+        method: 'DELETE'
+    }
+    return axios(url, config)
+        .then(responseSuccessHandler)
+        .catch(responseErrorHandler)
+}
 
 const responseSuccessHandler = response => {
     console.log(response);
@@ -45,4 +65,4 @@ const responseErrorHandler = error => {
     return Promise.reject(error);
 }
 
-export {create, getAll, update}
+export {create, getAll, getById, update, del}

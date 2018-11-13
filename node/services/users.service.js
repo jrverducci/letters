@@ -54,6 +54,18 @@ const create = item => {
     return promise;
   }
 
+  const del = (id) => {
+    const promise = mssql.executeProc("LettersUsers_Delete", sqlRequest => {
+      sqlRequest.addParameter("Id", TYPES.Int, id)
+    })
+      .then(response => {
+        return response
+      })
+      .catch(responseErrorHandler);
+  
+    return promise;
+  }
+
   const responseErrorHandler = error => {
     console.log(error);
     if (error && error.response && error.response.data && error.response.data.errors) {
@@ -65,5 +77,6 @@ const create = item => {
   module.exports = {
     create,
     update,
-    getAll
+    getAll,
+    del
   }

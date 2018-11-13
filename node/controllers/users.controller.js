@@ -2,10 +2,11 @@ const usersServices = require('../services/users.service');
 const responses = require('../models/responses/index');
 
 const create = (req, res) => {
-    usersServices.post(req.body)
+    usersServices.create(req.model)
     .then(response => {
-        const responseObj = new responses.SuccessResponse();
-        res.status(200).json(responseObj)
+        const responseObj = new responses.ItemResponse();
+            responseObj.item = response;
+            res.status(200).json(responseObj)
       })
       .catch(err => {
         const responseObj = new responses.ErrorResponse();
@@ -15,7 +16,7 @@ const create = (req, res) => {
   };
 
   const update = (req, res) => {
-    usersServices.post(req.body)
+    usersServices.post(req.model)
     .then(response => {
         const responseObj = new responses.SuccessResponse();
         res.status(200).json(responseObj)
@@ -42,4 +43,18 @@ const create = (req, res) => {
         })
 }
 
-module.exports = {create, update, getAll}
+const del = (req, res) => {
+    const id = req.params.id
+    usersServices.del(id)
+    .then(response => {
+        const responseObj = new responses.SuccessResponse();
+        res.status(200).json(responseObj)
+      })
+      .catch(err => {
+        const responseObj = new responses.ErrorResponse();
+        responseObj.errors = err.stack;
+        res.status(500).send(responseObj);
+      })
+}
+
+module.exports = {create, update, getAll, del}
