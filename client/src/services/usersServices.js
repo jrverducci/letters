@@ -21,6 +21,17 @@ function getAll(){
         .catch(responseErrorHandler)
 } 
 
+function update(id, data){
+    let url = "node/server.js/api/users/" + id;
+    const config = {
+        method: 'PUT',
+        data: data
+    }
+    return axios(url, config)
+        .then(responseSuccessHandler)
+        .catch(responseErrorHandler)
+} 
+
 const responseSuccessHandler = response => {
     console.log(response);
     return response.data;
@@ -34,4 +45,4 @@ const responseErrorHandler = error => {
     return Promise.reject(error);
 }
 
-export {create, getAll}
+export {create, getAll, update}

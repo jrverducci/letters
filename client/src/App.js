@@ -8,11 +8,15 @@ import NewLetter from "./components/newLetter";
 import LetterList from "./components/letterList";
 import TrackSanta from "./components/trackSanta";
 import LetterSent from "./components/letterSent";
+import Account from "./components/account";
+import UpdateAccount from "./components/updateAccount";
+import Snowstorm from 'react-snowstorm';
 
 
 const AppRouter = () => (
   <Router>
     <React.Fragment>
+      <Snowstorm />
       <Route path="/home" exact component={Home} />
       <Route path="/register" exact component={Register} />
       <Route path="/login" exact component={LogIn} />
@@ -21,6 +25,8 @@ const AppRouter = () => (
       <Route path="/letter/list" exact component={LetterList} />
       <Route path="/tracker" exact component={TrackSanta} />
       <Route path="/letter/sent" exact component={LetterSent} />
+      <Route path="/account" exact component={Account} />
+      <Route path="/account/update" exact component={UpdateAccount} />
     </React.Fragment>
   </Router>
 );

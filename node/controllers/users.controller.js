@@ -14,6 +14,19 @@ const create = (req, res) => {
       })
   };
 
+  const update = (req, res) => {
+    usersServices.post(req.body)
+    .then(response => {
+        const responseObj = new responses.SuccessResponse();
+        res.status(200).json(responseObj)
+      })
+      .catch(err => {
+        const responseObj = new responses.ErrorResponse();
+        responseObj.errors = err.stack;
+        res.status(500).send(responseObj);
+      })
+  };
+
   const getAll = (req, res) => {
     const promise = usersServices.getAll();
     promise
@@ -29,4 +42,4 @@ const create = (req, res) => {
         })
 }
 
-module.exports = {create, getAll}
+module.exports = {create, update, getAll}

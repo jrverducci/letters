@@ -24,6 +24,26 @@ const create = item => {
     return promise;
   }
 
+  const update = item => {
+    const promise = mssql.executeProc("LettersUsers_Update_ById", sqlRequest => {
+        sqlRequest.addParameter("FirstName", TYPES.NVarChar, item.firstName, {
+          length: 50
+        });
+        sqlRequest.addParameter("LastName", TYPES.NVarChar, item.lastName, {
+            length: 50
+          });
+        sqlRequest.addParameter("Email", TYPES.NVarChar, item.email, {
+            length: 255
+          });
+        sqlRequest.addParameter("Id", TYPES.Int, item.id);
+      })
+      .then(response => {
+        return response;
+      })
+      .catch(responseErrorHandler);
+    return promise;
+  }
+
   const getAll = () => {
     const promise = mssql.executeProc('LettersUsers_SelectAll')
         .then(response => {
@@ -44,5 +64,6 @@ const create = item => {
   
   module.exports = {
     create,
+    update,
     getAll
   }

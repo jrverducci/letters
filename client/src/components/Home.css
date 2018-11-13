@@ -1,6 +1,10 @@
 .Home {
-  background-color: #282c34;
+  background-color: #050f35;
   text-align: center
+}
+
+.Home-free {
+  background-color: #050f35;
 }
 
 .Home-logo {
@@ -9,7 +13,7 @@
 }
 
 .Home-header {
-  background-color: #282c34;
+  background-color: #050f35;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -28,3 +32,17 @@
     transform: rotate(360deg);
   }
 }
+
+.candy-cane.small{
+	font-size: 32px;
+    background: repeating-linear-gradient(
+    45deg,
+    #fff,
+    #fff 2px,
+    #CF112B 3px,
+    #CF112B 8px
+    );
+  	-webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+}
+

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './Home.css';
 import {Button, ButtonToolbar} from 'react-bootstrap';
-import Snowstorm from 'react-snowstorm';
-
 
 class LandingPage extends Component {
     constructor(props){
@@ -22,7 +20,6 @@ class LandingPage extends Component {
   render() {
     return (
       <div className="Home">
-      <Snowstorm />
         <header className="Home-header">
         <h1>
             Letters To Santa

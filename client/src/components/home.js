@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Home.css';
-import Snowstorm from 'react-snowstorm';
 import {Button, ButtonToolbar} from 'react-bootstrap';
 
 class Home extends Component {
@@ -8,6 +7,7 @@ class Home extends Component {
         super(props)
         this.onWrite = this.onWrite.bind(this);
         this.onFind = this.onFind.bind(this);
+        this.onUpdate = this.onUpdate.bind(this);
     }
 
     onWrite() {
@@ -18,10 +18,14 @@ class Home extends Component {
         this.props.history.push('/letter/list')
     }
 
+    onUpdate() {
+      this.props.history.push('/account')
+    }
+
   render() {
     return (
-      <div className="Home">
-      <Snowstorm></Snowstorm>
+      <div className="Home-free">
+      <Button bsStyle="info" bsSize="xsmall" onClick={this.onUpdate}>Update Account</Button>
         <div className="Home-header">
         <h1>
             (Letters To Santa) need font ideas
