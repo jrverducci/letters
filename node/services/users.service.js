@@ -47,7 +47,7 @@ const create = item => {
   const getAll = () => {
     const promise = mssql.executeProc('LettersUsers_SelectAll')
         .then(response => {
-            const items = response.resultSets[1];s
+            const items = response.resultSets[1]
             return items;
         })
         .catch(responseErrorHandler)

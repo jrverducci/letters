@@ -7,9 +7,10 @@ const port = process.env.PORT || 8080;
 
 app.use(bodyParser.json())
 
-app.use('node/server.js', routes);
+app.use('/node/server.js', routes);
 
 app.use((req, res) => {
+  debugger;
   res.status(404).send("<h2>The path is not valid</h2>");
 });
 

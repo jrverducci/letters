@@ -13,7 +13,6 @@ var connectionConfig = {
   password: process.env.SQL_PASSWORD,
   options: {
     database: process.env.SQL_DATABASE_NAME,
-    instanceName: process.env.SQL_INSTANCE_NAME,
     camelCaseColumns: true
   }
   /*
