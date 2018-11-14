@@ -24,6 +24,31 @@ class UpdateAccount extends Component {
         this.onUpdate = this.onUpdate.bind(this);
         this.goBack = this.goBack.bind(this);  
     }
+
+    componentDidMount(){
+      let id = 3
+      usersServices.getById(id)
+      .then((response) => {
+        response.item.map(item => {
+          return (
+           this.setState({
+            firstName: {
+              input: true,
+              value: item.firstName
+          },
+          lastName: {
+              input: true,
+              value: item.lastName
+          },
+          email: {
+              input: true,
+              value: item.email
+          }
+        }))
+        })  
+      })
+      .catch(console.log)
+    }
     
       handleChange(e) {
         this.setState({ 
@@ -36,13 +61,14 @@ class UpdateAccount extends Component {
 
     onUpdate(){
         console.log('update clicked')
-        const id = 1;
+        const id = 3;
         const data = {
             firstName: this.state.firstName.value,
             lastName: this.state.lastName.value,
-            email: this.state.email.value
+            email: this.state.email.value,
+            id: id
         }
-        usersServices.update(id,data)
+        usersServices.update(id, data)
         .then((response) => 
             console.log(response))
         .then(() => {

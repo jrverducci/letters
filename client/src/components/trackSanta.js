@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import './Home.css';
 import {Button, ButtonToolbar} from 'react-bootstrap';
-import Snowstorm from 'react-snowstorm';
-
 
 class TrackSanta extends Component {
-    constructor(props){
-        super(props)
-
-    }
-
+    
 
   render() {
     return (
       <div className="Home">
-      <Snowstorm />
         <header className="Home-header">
         <h1>
             Merry Christmas

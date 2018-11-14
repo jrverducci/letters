@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 function create(data){
-    let url = "/api/letters";
+    let url = "/node/server.js/api/letters";
     const config = {
         method: 'POST',
         data: data
@@ -12,7 +12,17 @@ function create(data){
 } 
 
 function getAll(){
-    let url = "/api/letters";
+    let url = "/node/server.js/api/letters";
+    const config = {
+        method: 'GET'
+    }
+    return axios(url, config)
+        .then(responseSuccessHandler)
+        .catch(responseErrorHandler)
+}
+
+function readByParentId(id){
+    let url = "/node/server.js/api/letters/" + id;
     const config = {
         method: 'GET'
     }
@@ -34,4 +44,4 @@ const responseErrorHandler = error => {
     return Promise.reject(error);
 }
 
-export {create, getAll}
+export {create, getAll, readByParentId}

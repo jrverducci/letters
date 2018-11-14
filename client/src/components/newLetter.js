@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Home.css';
 import { FormGroup, Form, FormControl, Button, Col, ButtonToolbar } from 'react-bootstrap';
+import * as letterServices from "../services/lettersServices";
+import * as emailService from "../services/emailServices";
 
 class NewLetter extends Component {
     constructor(props){
@@ -26,7 +28,29 @@ class NewLetter extends Component {
     }
 
     onSubmit(){
-        this.props.history.push('/letter/sent')
+      let parentId = 3
+      let parentEmail = 'jrverducci@gmail.com'
+        const data = {
+          parentId: parentId,
+          childName: this.state.childName,
+          letter: this.state.letter
+        }
+
+        const emailData = {
+          parentEmail: parentEmail,
+          childName: this.state.childName,
+          letter: this.state.letter
+        }
+        letterServices.create(data)
+        .then(() => {
+          this.props.history.push('/letter/sent')
+        })
+        .catch(console.log)
+        emailService.email(emailData)
+        .then(() => {
+          console.log("email sent")
+        })
+        .catch(console.log)
     }
 
   render() {

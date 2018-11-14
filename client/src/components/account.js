@@ -15,10 +15,10 @@ class Account extends Component {
 
     componentDidMount() {
         let id = 3
-        usersServices.getById(3)
+        usersServices.getById(id)
         .then((response) => {
             this.setState({
-                userInfo: response.items
+                userInfo: response.item
             })
         })
     }
@@ -43,7 +43,7 @@ class Account extends Component {
       const account = this.state.userInfo.map(item => {
           return(
               <div>
-              <p>Name: {item.firstName + '' + item.lastName}</p>
+              <p>Name: {item.firstName + ' ' + item.lastName}</p>
               <p>Email: {item.email}</p>
               </div>
           )

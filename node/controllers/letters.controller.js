@@ -2,9 +2,10 @@ const lettersServices = require('../services/letters.service');
 const responses = require('../models/responses/index');
 
 const create = (req, res) => {
-    lettersServices.post(req.body)
+    lettersServices.create(req.body)
     .then(response => {
-        const responseObj = new responses.SuccessResponse();
+        const responseObj = new responses.ItemResponse();
+        responseObj.item = response;
         res.status(200).json(responseObj)
       })
       .catch(err => {
@@ -28,4 +29,19 @@ const create = (req, res) => {
         })
 }
 
-module.exports = {create, getAll}
+const readByParentId = (req, res) => {
+    const id = req.params.id
+    lettersServices.readByParentId(id)
+     .then(response => {
+        const responseObj = new responses.ItemsResponse(response);
+        responseObj.items = response;
+        res.status(200).json(responseObj);
+      })
+    .catch(err => {
+        const responseObj = new responses.ErrorResponse();
+        responseObj.error = err.stack;
+        res.status(500).send(responseObj);
+      })
+  }
+
+module.exports = {create, getAll, readByParentId}

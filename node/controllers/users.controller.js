@@ -16,7 +16,8 @@ const create = (req, res) => {
   };
 
   const update = (req, res) => {
-    usersServices.post(req.model)
+    const id = req.params.id
+    usersServices.update(req.model, id)
     .then(response => {
         const responseObj = new responses.SuccessResponse();
         res.status(200).json(responseObj)
@@ -43,6 +44,20 @@ const create = (req, res) => {
         })
 }
 
+const getById = (req, res) => {
+    const id = req.params.id
+    usersServices.getById(id)
+      .then(response => {
+        const responseObj = new responses.ItemResponse(response);
+        responseObj.item = response;
+        res.status(200).json(responseObj);
+      })
+    .catch(err => {
+        const responseObj = new responses.ErrorResponse();
+        responseObj.error = err.stack;
+        res.status(500).send(responseObj);
+      })
+  }
 const del = (req, res) => {
     const id = req.params.id
     usersServices.del(id)
@@ -57,4 +72,4 @@ const del = (req, res) => {
       })
 }
 
-module.exports = {create, update, getAll, del}
+module.exports = {create, update, getAll, getById, del}

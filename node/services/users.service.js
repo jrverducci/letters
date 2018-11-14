@@ -24,7 +24,7 @@ const create = item => {
     return promise;
   }
 
-  const update = item => {
+  const update = (item, id) => {
     const promise = mssql.executeProc("LettersUsers_Update_ById", sqlRequest => {
         sqlRequest.addParameter("FirstName", TYPES.NVarChar, item.firstName, {
           length: 50
@@ -35,7 +35,7 @@ const create = item => {
         sqlRequest.addParameter("Email", TYPES.NVarChar, item.email, {
             length: 255
           });
-        sqlRequest.addParameter("Id", TYPES.Int, item.id);
+        sqlRequest.addParameter("Id", TYPES.Int, id);
       })
       .then(response => {
         return response;
@@ -53,6 +53,18 @@ const create = item => {
         .catch(responseErrorHandler)
     return promise;
   }
+
+  const getById = (id) => {
+    const promise = mssql.executeProc("LettersUsers_Select_ById", sqlRequest => {
+      sqlRequest.addParameter("Id", TYPES.Int, id);
+    })
+      .then(response => {
+        return response.resultSets[1]
+      })
+      .catch(responseErrorHandler);
+  
+    return promise;
+  };
 
   const del = (id) => {
     const promise = mssql.executeProc("LettersUsers_Delete", sqlRequest => {
@@ -78,5 +90,6 @@ const create = item => {
     create,
     update,
     getAll,
+    getById,
     del
   }

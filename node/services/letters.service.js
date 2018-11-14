@@ -29,6 +29,18 @@ const create = item => {
     return promise;
   }
 
+  const readByParentId = (id) => {
+    const promise = mssql.executeProc("LettersLetters_Select_ByParentId", sqlRequest => {
+      sqlRequest.addParameter("ParentId", TYPES.Int, id);
+    })
+      .then(response => {
+        return response.resultSets[1]
+      })
+      .catch(responseErrorHandler);
+  
+    return promise;
+  };
+
   const responseErrorHandler = error => {
     console.log(error);
     if (error && error.response && error.response.data && error.response.data.errors) {
@@ -39,5 +51,6 @@ const create = item => {
   
   module.exports = {
     create,
-    getAll
+    getAll,
+    readByParentId
   }
