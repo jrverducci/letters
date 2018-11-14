@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-function create(data){
+function newLetter(data){
     let url = "/node/server.js/api/letters";
     const config = {
         method: 'POST',
@@ -44,4 +44,4 @@ const responseErrorHandler = error => {
     return Promise.reject(error);
 }
 
-export {create, getAll, readByParentId}
+export {newLetter, getAll, readByParentId}

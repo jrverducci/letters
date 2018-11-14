@@ -15,6 +15,34 @@ const create = (req, res) => {
       })
   };
 
+  const login = (req, res) => {
+    usersServices.login(req.body)
+    .then(response => {
+        const responseObj = new responses.ItemResponse();
+            responseObj.item = response;
+            res.status(200).json(responseObj)
+      })
+      .catch(err => {
+        const responseObj = new responses.ErrorResponse();
+        responseObj.errors = err.stack;
+        res.status(500).send(responseObj);
+      })
+  };
+
+  const emailCheck = (req, res) => {
+    usersServices.emailCheck(req.body)
+    .then(response => {
+        const responseObj = new responses.ItemsResponse();
+            responseObj.items = response;
+            res.status(200).json(responseObj)
+      })
+      .catch(err => {
+        const responseObj = new responses.ErrorResponse();
+        responseObj.errors = err.stack;
+        res.status(500).send(responseObj);
+      })
+  };
+
   const update = (req, res) => {
     const id = req.params.id
     usersServices.update(req.model, id)
@@ -72,4 +100,4 @@ const del = (req, res) => {
       })
 }
 
-module.exports = {create, update, getAll, getById, del}
+module.exports = {create, login, emailCheck, update, getAll, getById, del}

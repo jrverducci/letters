@@ -11,6 +11,28 @@ function create(data){
         .catch(responseErrorHandler)
 } 
 
+function login(data){
+    let url = "/node/server.js/api/users/login";
+    const config = {
+        method: 'POST',
+        data: data
+    }
+    return axios(url, config)
+        .then(responseSuccessHandler)
+        .catch(responseErrorHandler)
+}
+
+function emailCheck(email){
+    let url = "/node/server.js/api/users/email";
+    const config = {
+        method: 'POST',
+        data: email
+    }
+    return axios(url, config)
+        .then(responseSuccessHandler)
+        .catch(responseErrorHandler)
+}
+
 function getAll(){
     let url = "/node/server.js/api/users";
     const config = {
@@ -65,4 +87,4 @@ const responseErrorHandler = error => {
     return Promise.reject(error);
 }
 
-export {create, getAll, getById, update, del}
+export {create, login, emailCheck, getAll, getById, update, del}

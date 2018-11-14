@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import './Home.css';
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Button, InputGroup, Glyphicon, ButtonToolbar } from 'react-bootstrap';
 import * as validation from '../utils/validation';
+import * as userServices from '../services/usersServices';
+import swal from 'sweetalert2';
+import { connect } from 'react-redux';
+import {setUser} from '../actions/users';
+
 
 class LogIn extends Component {
     constructor(props){
@@ -23,6 +28,8 @@ class LogIn extends Component {
         this.hide = this.hide.bind(this);
         this.onLogin = this.onLogin.bind(this);
         this.goBack = this.goBack.bind(this);
+        this.login = this.login.bind(this);
+        this.keyPressed = this.keyPressed.bind(this);
     }
 
     handleChange(e) {
@@ -46,8 +53,85 @@ class LogIn extends Component {
         this.props.history.goBack()
     }
 
+    keyPressed(event) {
+        let code = event.keyCode || event.which;
+        if (code === 13) {
+          this.onLogin();
+        }
+      }
+
     onLogin(){
-        this.props.history.push('/home')
+        if(this.state.password.value === ''){
+            swal({
+                title: 'Missing Password',
+                text: "Please enter your password.",
+                type: 'error',
+                showCancelButton: false,
+                confirmButtonColor: 'green',
+                confirmButtonText: 'Close',
+                background: '#050f35'
+            })
+        }
+        else if(this.state.email.value === ''){
+            swal({
+                title: 'Missing Email',
+                text: "Please enter your email address.",
+                type: 'error',
+                showCancelButton: false,
+                confirmButtonColor: 'green',
+                confirmButtonText: 'Close',
+                background: '#050f35'
+            })
+        }
+        else{
+        const email =this.state.email.value
+        userServices.emailCheck(email)
+        .then((response) => {
+            console.log(response)
+        })
+        .then(() => {
+            this.login()
+        })
+        .catch((error) => {
+            if(error.response.status === 500){
+                swal({
+                    title: 'Incorrect Email',
+                    text: "Email not found. Please go to Registration page to sign up with this email.",
+                    type: 'error',
+                    showCancelButton: false,
+                    confirmButtonColor: '#7ac7f6',
+                    confirmButtonText: 'green',
+                    background: '#050f35'
+                }) 
+            }})
+    }
+}
+
+    login(){
+        const data = {
+            email: this.state.email.value,
+            password: this.state.password.value
+        }
+        userServices.login(data)
+        .then((response) => {
+            this.props.setUser(response.item[0])
+        })
+        .then(() => {
+            this.props.history.push('/home')
+        })
+        .catch((error) => {
+            if(error.response.status === 500){
+                swal({
+                    title: 'Incorrect Password',
+                    text: "Password entered does not match email",
+                    type: 'error',
+                    showCancelButton: false,
+                    confirmButtonColor: 'green',
+                    confirmButtonText: 'Close',
+                    background: '#050f35'
+                }) 
+            }})
+
     }
 
   render() {
@@ -66,6 +150,7 @@ class LogIn extends Component {
             value={this.state.email.value}
             placeholder="Enter Parent's Email"
             onChange={this.handleChange}
+            onKeyPress={this.keyPressed}
           />
           {this.state.email.input && !validation.email(this.state.email.value) ? <HelpBlock>Enter Valid Email.</HelpBlock> : null}
         </FormGroup>
@@ -81,6 +166,7 @@ class LogIn extends Component {
             value={this.state.password.value}
             placeholder="Enter Password"
             onChange={this.handleChange}
+            onKeyPress={this.keyPressed}
             
           />
           <InputGroup.Addon>
@@ -103,4 +189,8 @@ class LogIn extends Component {
   }
 }
 
-export default LogIn;
+const mapDispatchToProps = dispatch => ({
+    setUser: user => dispatch(setUser(user))
+})
+
+export default connect(null, mapDispatchToProps)(LogIn);

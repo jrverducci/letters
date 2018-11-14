@@ -5,6 +5,8 @@ const User = require("../models/User");
 const usersController = require('../controllers/users.controller')
 
 router.post('/', validateBody(Register), usersController.create)
+router.post('/login', usersController.login)
+router.post('/email', usersController.emailCheck)
 router.get('/', usersController.getAll)
 router.get('/:id', usersController.getById)
 router.put('/:id', validateBody(User), usersController.update)

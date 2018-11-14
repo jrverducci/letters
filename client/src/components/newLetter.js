@@ -41,7 +41,7 @@ class NewLetter extends Component {
           childName: this.state.childName,
           letter: this.state.letter
         }
-        letterServices.create(data)
+        letterServices.newLetter(data)
         .then(() => {
           this.props.history.push('/letter/sent')
         })

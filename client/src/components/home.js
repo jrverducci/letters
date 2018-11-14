@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Home.css';
 import {Button, ButtonToolbar} from 'react-bootstrap';
+import {connect} from 'react-redux';
 
 class Home extends Component {
     constructor(props){
@@ -24,7 +25,7 @@ class Home extends Component {
     }
 
     onLogOut() {
-      this.props.history.push('/')
+      this.props.history.push('/logout')
     }
 
   render() {
@@ -46,4 +47,8 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = state => ({
+  currentUserProfile: state.userProfiles
+})
+
+export default connect(mapStateToProps)(Home);
