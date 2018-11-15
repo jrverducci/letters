@@ -3,7 +3,7 @@ const {TYPES} = require('tedious')
 
 const create = item => {
     const promise = mssql.executeProc("LettersLetters_Insert", sqlRequest => {
-        sqlRequest.addParameter("ParentId", TYPES.int, item.parentId);
+        sqlRequest.addParameter("ParentId", TYPES.Int, item.parentId);
         sqlRequest.addParameter("ChildName", TYPES.NVarChar, item.childName, {
             length: 50
           });
@@ -41,6 +41,18 @@ const create = item => {
     return promise;
   };
 
+  const del = (id) => {
+    const promise = mssql.executeProc("LettersLetters_Delete", sqlRequest => {
+      sqlRequest.addParameter("Id", TYPES.Int, id);
+    })
+      .then(response => {
+        return response
+      })
+      .catch(responseErrorHandler);
+  
+    return promise;
+  };
+
   const responseErrorHandler = error => {
     console.log(error);
     if (error && error.response && error.response.data && error.response.data.errors) {
@@ -52,5 +64,6 @@ const create = item => {
   module.exports = {
     create,
     getAll,
-    readByParentId
+    readByParentId,
+    del
   }

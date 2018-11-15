@@ -44,4 +44,17 @@ const readByParentId = (req, res) => {
       })
   }
 
-module.exports = {create, getAll, readByParentId}
+  const del = (req, res) => {
+    const id = req.params.id
+    lettersServices.del(id)
+    .then(response => {
+        const responseObj = new responses.SuccessResponse();
+        res.status(200).json(responseObj);
+    })
+    .catch(err => {
+        const responseObj = new responses.ErrorResponse();
+        res.status(500).send(responseObj)
+    })
+  }
+
+module.exports = {create, getAll, readByParentId, del}

@@ -3,6 +3,8 @@ import './Home.css';
 import { FormGroup, Form, FormControl, Button, Col, ButtonToolbar } from 'react-bootstrap';
 import * as letterServices from "../services/lettersServices";
 import * as emailService from "../services/emailServices";
+import {connect} from "react-redux";
+import swal from 'sweetalert2';
 
 class NewLetter extends Component {
     constructor(props){
@@ -15,6 +17,8 @@ class NewLetter extends Component {
         this.handleChange = this.handleChange.bind(this); 
         this.onSubmit = this.onSubmit.bind(this);
         this.goBack = this.goBack.bind(this);
+        this.keyPressed = this.keyPressed.bind(this);
+        this.submitCheck = this.submitCheck.bind(this);
     }
 
     handleChange(e) {
@@ -27,9 +31,46 @@ class NewLetter extends Component {
         this.props.history.goBack()
     }
 
+    keyPressed(event) {
+      let code = event.keyCode || event.which;
+      if (code === 13) {
+        this.submitCheck();
+      }
+    }
+
+    submitCheck(){
+      swal({
+        title: "Are you ready to send this letter to Santa?",
+        text: "Did you check it twice?",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "green",
+        cancelButtonColor: 'red',
+        confirmButtonText: "Yes, send it!",
+        cancelButtonText: "No, I need to check it twice!",
+        background: '#050f35'
+      }).then(result => {
+        if (result.value) {
+          swal({
+            title: "Sent!",
+            text: "The letter is on it's way to the North Pole.",
+            type: "success",
+            background: '#050f35',
+            confirmButtonColor: 'green'
+          })
+          .then(()=>{
+            this.onSubmit()
+          })  
+          .catch(console.log)
+        }
+      })
+      .catch(console.log)
+
+    }
+
     onSubmit(){
-      let parentId = 3
-      let parentEmail = 'jrverducci@gmail.com'
+      let parentId = this.props.user.id
+      let parentEmail = this.props.user.email
         const data = {
           parentId: parentId,
           childName: this.state.childName,
@@ -73,6 +114,7 @@ class NewLetter extends Component {
             placeholder="Write your letter to Santa here..."
             onChange={this.handleChange}
             style={{height: '250px', width: '100%'}}
+            onKeyPress={this.keyPressed}
           /></Col>
         </FormGroup> 
         <FormGroup>
@@ -92,7 +134,7 @@ class NewLetter extends Component {
         <br></br> 
       <div className="row">
       <ButtonToolbar>
-            <Button bsStyle="success" bsSize="large" onClick={this.onSubmit}>Send Letter to Santa</Button>
+            <Button bsStyle="success" bsSize="large" onClick={this.submitCheck}>Send Letter to Santa</Button>
             <Button bsStyle="danger" bsSize="large" onClick={this.goBack}>Go Back</Button>
     </ButtonToolbar>
         </div>
@@ -102,4 +144,8 @@ class NewLetter extends Component {
   }
 }
 
-export default NewLetter;
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps)(NewLetter);

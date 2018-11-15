@@ -152,7 +152,7 @@ class LogIn extends Component {
             onChange={this.handleChange}
             onKeyPress={this.keyPressed}
           />
-          {this.state.email.input && !validation.email(this.state.email.value) ? <HelpBlock>Enter Valid Email.</HelpBlock> : null}
+          {this.state.email.input && !validation.email(this.state.email.value) ? <HelpBlock style={{fontSize: '10px'}}>Enter Valid Email.</HelpBlock> : null}
         </FormGroup>
         
         <FormGroup validationState={this.state.password.input && (validation.password(this.state.password.value) ? "success" : "error")}>
@@ -173,7 +173,7 @@ class LogIn extends Component {
           {this.state.passwordType === "password" ? <Glyphicon glyph="eye-open" bsStyle="success" bsSize="xsmall" onClick={this.show} /> : <Glyphicon glyph="eye-close" bsStyle="danger" bsSize="xsmall" onClick={this.hide} /> }
       </InputGroup.Addon>
       </InputGroup>
-          {this.state.password.input && !validation.password(this.state.password.value) ? <HelpBlock>Must contain at least 1 number and 1 symbol</HelpBlock> : null}
+          {this.state.password.input && !validation.password(this.state.password.value) ? <HelpBlock style={{fontSize: '10px'}}>Must contain at least 1 number and 1 symbol</HelpBlock> : null}
         
         </FormGroup>
       </form>

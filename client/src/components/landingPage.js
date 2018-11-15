@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Home.css';
 import {Button, ButtonToolbar} from 'react-bootstrap';
+import santaLogo from '../components/santa-logo.png';
 
 class LandingPage extends Component {
     constructor(props){
@@ -24,7 +25,7 @@ class LandingPage extends Component {
         <h1>
             Letters To Santa
           </h1>
-          <img src="http://res.freestockphotos.biz/pictures/17/17382-illustration-of-a-red-santa-hat-pv.png" className="Home-logo" alt="logo" />
+          <img src={santaLogo} className="Home-logo" alt="logo" />
           <div className="row">
           <ButtonToolbar>
           <Button bsStyle="success" bsSize="large" onClick={this.onRegister}>Register</Button>

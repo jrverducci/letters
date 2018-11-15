@@ -31,6 +31,16 @@ function readByParentId(id){
         .catch(responseErrorHandler)
 }
 
+function del(id){
+    let url = "/node/server.js/api/letters/" + id;
+    const config = {
+        method: 'DELETE'
+    }
+    return axios(url, config)
+        .then(responseSuccessHandler)
+        .catch(responseErrorHandler)
+}
+
 const responseSuccessHandler = response => {
     console.log(response);
     return response.data;
@@ -44,4 +54,4 @@ const responseErrorHandler = error => {
     return Promise.reject(error);
 }
 
-export {newLetter, getAll, readByParentId}
+export {newLetter, getAll, readByParentId, del}

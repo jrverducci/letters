@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { ButtonToolbar, Button } from 'react-bootstrap';
 import * as usersServices from "../services/usersServices";
+import {connect} from 'react-redux';
+
 
 class Account extends Component {
     constructor(props){
@@ -9,12 +11,12 @@ class Account extends Component {
             userInfo : []
         } 
         this.onUpdate = this.onUpdate.bind(this);
-        this.goBack = this.goBack.bind(this);
+        this.goHome = this.goHome.bind(this);
         this.deleteAccount = this.deleteAccount.bind(this);  
     }
 
     componentDidMount() {
-        let id = 3
+        let id = this.props.user.id
         usersServices.getById(id)
         .then((response) => {
             this.setState({
@@ -23,8 +25,8 @@ class Account extends Component {
         })
     }
 
-    goBack(){
-        this.props.history.goBack()
+    goHome(){
+        this.props.history.push('/home')
     }
 
     onUpdate(){
@@ -32,7 +34,7 @@ class Account extends Component {
     }
 
     deleteAccount() {
-        let id = 3
+        let id = this.props.user.id
         usersServices.del(id)
         .then(()=> {
             this.props.history.push('/')
@@ -59,7 +61,7 @@ class Account extends Component {
       <ButtonToolbar>
             <Button bsStyle="success" bsSize="large" onClick={this.onUpdate}>Update Account</Button>
             <Button bsStyle="danger" bsSize="large" onClick={this.deleteAccount}>Delete Account</Button>
-            <Button bsStyle="info" bsSize="large" onClick={this.goBack}>Go Back</Button>
+            <Button bsStyle="info" bsSize="large" onClick={this.goHome}>Go Home</Button>
     </ButtonToolbar>
       </div>
       </div>
@@ -68,4 +70,8 @@ class Account extends Component {
   }
 }
 
-export default Account;
+const mapStateToProps = state => ({
+    user: state.user
+  })
+
+export default connect(mapStateToProps)(Account);

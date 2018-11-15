@@ -48,7 +48,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentUserProfile: state.userProfiles
+  user: state.user
 })
 
 export default connect(mapStateToProps)(Home);

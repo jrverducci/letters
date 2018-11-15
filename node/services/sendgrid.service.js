@@ -2,12 +2,22 @@ const email = item => {
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const msg = {
-  to: 'jrverducci@gmail.com',
-  from: 'Sender <sender@example.org>',
-  subject: 'Hello world',
-  text: 'Hello plain world!',
-  html: '<p>Hello HTML world!</p>',
-};
-sgMail.send(msg);}
+  to: item.parentEmail,
+  from: 'Head Elf Twinkle <twinkle@santaletters.org>',
+  templateId: process.env.LETTER_SENT_TEMPLATE,
+  dynamic_template_data: {
+    child: item.childName,
+    letter: item.letter,
+  },
+}
+
+return new Promise(function(resolve, reject) {
+  sgMail.send(msg, function(err, data){
+    if(err !== null){reject(err)}
+    else{resolve(data)}
+  });
+});
+ 
+}
 
 module.exports = {email}
