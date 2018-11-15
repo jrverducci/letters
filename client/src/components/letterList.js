@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Home.css';
-import {Button, Table} from 'react-bootstrap';
+import {Button, ButtonToolbar, Table} from 'react-bootstrap';
 import * as letterServices from '../services/lettersServices';
 import * as moment from 'moment';
 import {connect} from 'react-redux';
@@ -15,6 +15,7 @@ class LetterList extends Component {
         this.onHome = this.onHome.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.newLetter = this.newLetter.bind(this);
+        this.onView = this.onView.bind(this);
     }
 
     componentDidMount(){
@@ -34,6 +35,14 @@ class LetterList extends Component {
 
   newLetter() {
     this.props.history.push('/letter')
+  }
+
+  onView(id, e) {
+    debugger
+    this.props.history.push({
+      pathname: 'letter/view',
+      state: { id: id }
+    })
   }
 
   onDelete(id, e){
@@ -78,7 +87,7 @@ class LetterList extends Component {
               <td>{index + 1}</td>
               <td>{item.childName}</td>
               <td>{moment(item.dateModified).utc().format('MMMM Do YYYY')}</td>
-              <td><Button bsStyle="danger" bsSize="small" onClick={e => this.onDelete(item.id, e)}>Delete</Button></td>
+              <td><ButtonToolbar><Button bsStyle="danger" bsSize="small" onClick={e => this.onView(item.id, e)}>View</Button><Button bsStyle="danger" bsSize="small" onClick={e => this.onDelete(item.id, e)}>Delete</Button></ButtonToolbar></td>
             </tr>
       )
     })

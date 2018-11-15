@@ -19,7 +19,7 @@ const create = item => {
     return promise;
   }
 
-  const getAll = () => {
+const getAll = () => {
     const promise = mssql.executeProc('LettersLetters_SelectAll')
         .then(response => {
             const items = response.resultSets[1];
@@ -29,9 +29,21 @@ const create = item => {
     return promise;
   }
 
-  const readByParentId = (id) => {
+const readByParentId = (id) => {
     const promise = mssql.executeProc("LettersLetters_Select_ByParentId", sqlRequest => {
       sqlRequest.addParameter("ParentId", TYPES.Int, id);
+    })
+      .then(response => {
+        return response.resultSets[1]
+      })
+      .catch(responseErrorHandler);
+  
+    return promise;
+  };
+
+ const readById = (id) => {
+    const promise = mssql.executeProc("LettersLetters_Select_ById", sqlRequest => {
+      sqlRequest.addParameter("Id", TYPES.Int, id);
     })
       .then(response => {
         return response.resultSets[1]
@@ -65,5 +77,6 @@ const create = item => {
     create,
     getAll,
     readByParentId,
+    readById,
     del
   }

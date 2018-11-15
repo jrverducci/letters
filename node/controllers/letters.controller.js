@@ -44,6 +44,21 @@ const readByParentId = (req, res) => {
       })
   }
 
+  const readById = (req, res) => {
+    const id = req.params.id
+    lettersServices.readById(id)
+     .then(response => {
+        const responseObj = new responses.ItemResponse(response);
+        responseObj.item = response;
+        res.status(200).json(responseObj);
+      })
+    .catch(err => {
+        const responseObj = new responses.ErrorResponse();
+        responseObj.error = err.stack;
+        res.status(500).send(responseObj);
+      })
+  }
+
   const del = (req, res) => {
     const id = req.params.id
     lettersServices.del(id)
@@ -57,4 +72,4 @@ const readByParentId = (req, res) => {
     })
   }
 
-module.exports = {create, getAll, readByParentId, del}
+module.exports = {create, getAll, readByParentId, readById, del}

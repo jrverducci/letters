@@ -22,6 +22,16 @@ function getAll(){
 }
 
 function readByParentId(id){
+    let url = "/node/server.js/api/letters/parent/" + id;
+    const config = {
+        method: 'GET'
+    }
+    return axios(url, config)
+        .then(responseSuccessHandler)
+        .catch(responseErrorHandler)
+}
+
+function readById(id){
     let url = "/node/server.js/api/letters/" + id;
     const config = {
         method: 'GET'
@@ -54,4 +64,4 @@ const responseErrorHandler = error => {
     return Promise.reject(error);
 }
 
-export {newLetter, getAll, readByParentId, del}
+export {newLetter, getAll, readByParentId, readById, del}

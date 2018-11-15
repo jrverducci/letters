@@ -3,7 +3,8 @@ const lettersController = require('../controllers/letters.controller')
 
 router.post('/', lettersController.create)
 router.get('/', lettersController.getAll)
-router.get('/:id', lettersController.readByParentId)
+router.get('/parent/:id', lettersController.readByParentId)
+router.get('/:id', lettersController.readyById)
 router.delete('/:id', lettersController.del)
 
 module.exports = router;

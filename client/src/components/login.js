@@ -99,8 +99,8 @@ class LogIn extends Component {
                     text: "Email not found. Please go to Registration page to sign up with this email.",
                     type: 'error',
                     showCancelButton: false,
-                    confirmButtonColor: '#7ac7f6',
-                    confirmButtonText: 'green',
+                    confirmButtonColor: 'green',
+                    confirmButtonText: 'Close',
                     background: '#050f35'
                 }) 
             }})
