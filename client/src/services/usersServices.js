@@ -22,6 +22,16 @@ function login(data){
         .catch(responseErrorHandler)
 }
 
+function logout(){
+    let url = "/node/server.js/api/users/logout";
+    const config = {
+        method: 'GET'
+    }
+    return axios(url, config)
+        .then(responseSuccessHandler)
+        .catch(responseErrorHandler)
+}
+
 function emailCheck(email){
     let url = "/node/server.js/api/users/email";
     const config = {
@@ -87,4 +97,4 @@ const responseErrorHandler = error => {
     return Promise.reject(error);
 }
 
-export {create, login, emailCheck, getAll, getById, update, del}
+export {create, login, logout, emailCheck, getAll, getById, update, del}

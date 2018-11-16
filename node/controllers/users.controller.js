@@ -29,6 +29,20 @@ const create = (req, res) => {
       })
   };
 
+  const logout = (res) => {
+    usersServices.logout()
+    .then(response => {
+        res.clearCookie("user")
+        const responseObj = new responses.SuccessResponse();
+        res.status(200).json(responseObj)
+      })
+      .catch(err => {
+        const responseObj = new responses.ErrorResponse();
+        responseObj.errors = err.stack;
+        res.status(500).send(responseObj);
+      })
+}
+
   const emailCheck = (req, res) => {
     usersServices.emailCheck(req.body)
     .then(response => {
@@ -100,4 +114,4 @@ const del = (req, res) => {
       })
 }
 
-module.exports = {create, login, emailCheck, update, getAll, getById, del}
+module.exports = {create, login, logout, emailCheck, update, getAll, getById, del}

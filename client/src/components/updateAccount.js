@@ -4,6 +4,7 @@ import * as validation from "../utils/validation";
 import * as usersServices from "../services/usersServices";
 import {connect} from "react-redux";
 import {setUser} from '../actions/users';
+import {withCookies} from 'react-cookie';
 
 class UpdateAccount extends Component {
     constructor(props){
@@ -29,7 +30,9 @@ class UpdateAccount extends Component {
     }
 
     componentDidMount(){
-      let id = this.props.user.id
+      const {cookies} = this.props
+      let cookieValue = cookies.get("user")
+      let id = this.props.user.id || cookieValue
       usersServices.getById(id)
       .then((response) => {
         response.item.map(item => {
@@ -63,7 +66,9 @@ class UpdateAccount extends Component {
     }
 
     onUpdate(){
-        const id = this.props.user.id
+      const {cookies} = this.props
+      let cookieValue = cookies.get("user")
+        const id = this.props.user.id || cookieValue
         const data = {
             firstName: this.state.firstName.value,
             lastName: this.state.lastName.value,
@@ -80,7 +85,9 @@ class UpdateAccount extends Component {
     }
 
     updateProps(){
-      let id = this.props.user.id
+      const {cookies} = this.props
+      let cookieValue = cookies.get("user")
+      let id = this.props.user.id || cookieValue
       usersServices.getById(id)
         .then((response) => {
           this.props.setUser(response.item[0])
@@ -149,4 +156,4 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateAccount);
+export default withCookies(connect(mapStateToProps, mapDispatchToProps)(UpdateAccount));

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './Home.css';
-import {Button, ButtonToolbar} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 import * as letterServices from '../services/lettersServices';
-import * as moment from 'moment';
 import {connect} from 'react-redux';
 
 class ViewLetter extends Component {
@@ -12,27 +11,37 @@ class ViewLetter extends Component {
           letter: []
         }
         this.onHome = this.onHome.bind(this);
+        this.goBack = this.goBack.bind(this);
     }
 
     componentDidMount(){
-        debugger;
-      let id = this.state.id
+      let id = this.props.location.state.id
       letterServices.readById(id)
         .then((response) => {
           this.setState({
-            letters: response.items
+            letter: response.item
           })
         })
         .catch(console.log)
+    }
+
+    onHome() {
+        this.props.history.push('/home')
+    }
+
+    goBack(){
+        this.props.history.goBack()
     }
 
 
   render() {
     const letter = this.state.letter.map((item) => {
       return(
-            <div key={item.id}>
+            <div className="border" key={item.id}>
+                <p>Dear Santa:</p>
+                <p>{item.letter}</p>
+                <p>From,</p>
               <p>{item.childName}</p>
-              <p>{moment(item.dateModified).utc().format('MMMM Do YYYY')}</p>
             </div>
       )
     })
@@ -40,11 +49,14 @@ class ViewLetter extends Component {
       <div className="Home-free">
       <Button bsStyle="danger" bsSize="small" onClick={this.onHome}>Go Home</Button>
         <div className="Home-header">
-        <h1>
-            Letter
-          </h1>
-          {letter}
-          
+        <div className="row">
+        <div className="col-sm-1"></div>
+        <div className="col-sm-10"> {letter}</div>
+        <div className="col-sm-1"></div>
+        </div>
+
+          <br></br>
+          <Button bsStyle="success" bsSize="small" onClick={this.goBack}>Go Back</Button>
         </div>
       </div>
     );

@@ -107,6 +107,15 @@ const create = item => {
     return promise;
   }
 
+  const logout = () => {
+    return new Promise(function(resolve, reject) {
+      if(0 === 0){
+        resolve()
+      }
+      else{reject()}
+    });
+  }
+
   const responseErrorHandler = error => {
     console.log(error);
     if (error && error.response && error.response.data && error.response.data.errors) {
@@ -122,5 +131,6 @@ const create = item => {
     update,
     getAll,
     getById,
+    logout,
     del
   }

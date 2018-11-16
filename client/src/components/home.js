@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './Home.css';
 import {Button, ButtonToolbar} from 'react-bootstrap';
 import {connect} from 'react-redux';
+import {clearState} from '../actions/logout';
+import {withCookies} from 'react-cookie';
 
 class Home extends Component {
     constructor(props){
@@ -25,7 +27,11 @@ class Home extends Component {
     }
 
     onLogOut() {
-      this.props.history.push('/logout')
+      let now = new Date();
+          now.setMonth( now.getMonth() - 2 );
+          document.cookie = "user=;expires="  + now.toUTCString() + ";"
+      this.props.clearState()
+      this.props.history.push('/')
     }
 
   render() {
@@ -51,4 +57,8 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = dispatch => ({
+  clearState: (val) => dispatch(clearState(val))
+})
+
+export default withCookies(connect(mapStateToProps, mapDispatchToProps)(Home));

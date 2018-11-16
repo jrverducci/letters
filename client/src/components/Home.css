@@ -72,3 +72,13 @@
   	-webkit-text-fill-color: transparent;
 }
 
+.border { 
+  background-color: rgb(241, 241, 153);
+  color: rgb(70, 5, 5);
+  border: 20px solid transparent;
+  padding: 15px;
+  -webkit-border-image: url(christmas-border.png) 100 round; /* Safari 3.1-5 */
+  -o-border-image: url(christmas-border.png) 100 round; /* Opera 11-12.1 */
+  border-image: url(christmas-border.png) 100 round;
+}
+

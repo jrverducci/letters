@@ -5,6 +5,7 @@ import * as letterServices from '../services/lettersServices';
 import * as moment from 'moment';
 import {connect} from 'react-redux';
 import swal from 'sweetalert2';
+import {withCookies} from 'react-cookie';
 
 class LetterList extends Component {
     constructor(props){
@@ -19,7 +20,9 @@ class LetterList extends Component {
     }
 
     componentDidMount(){
-      let id = this.props.user.id
+      const {cookies} = this.props
+      let cookieValue = cookies.get("user")
+      let id = this.props.user.id || cookieValue
       letterServices.readByParentId(id)
         .then((response) => {
           this.setState({
@@ -38,15 +41,16 @@ class LetterList extends Component {
   }
 
   onView(id, e) {
-    debugger
     this.props.history.push({
-      pathname: 'letter/view',
+      pathname: '/letter/view',
       state: { id: id }
     })
   }
 
   onDelete(id, e){
-    const parentId = this.props.user.id
+    const {cookies} = this.props
+      let cookieValue = cookies.get("user")
+    const parentId = this.props.user.id || cookieValue
     swal({
       title: "Are you sure you want to delete this letter to Santa?",
       text: "You won't be able to get this letter back!",
@@ -87,7 +91,7 @@ class LetterList extends Component {
               <td>{index + 1}</td>
               <td>{item.childName}</td>
               <td>{moment(item.dateModified).utc().format('MMMM Do YYYY')}</td>
-              <td><ButtonToolbar><Button bsStyle="danger" bsSize="small" onClick={e => this.onView(item.id, e)}>View</Button><Button bsStyle="danger" bsSize="small" onClick={e => this.onDelete(item.id, e)}>Delete</Button></ButtonToolbar></td>
+              <td><ButtonToolbar><Button bsStyle="success" bsSize="small" onClick={e => this.onView(item.id, e)}>View</Button><Button bsStyle="danger" bsSize="small" onClick={e => this.onDelete(item.id, e)}>Delete</Button></ButtonToolbar></td>
             </tr>
       )
     })
@@ -122,4 +126,4 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default connect(mapStateToProps)(LetterList);
+export default withCookies(connect(mapStateToProps)(LetterList));

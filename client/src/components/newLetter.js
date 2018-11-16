@@ -5,6 +5,7 @@ import * as letterServices from "../services/lettersServices";
 import * as emailService from "../services/emailServices";
 import {connect} from "react-redux";
 import swal from 'sweetalert2';
+import {withCookies} from 'react-cookie';
 
 class NewLetter extends Component {
     constructor(props){
@@ -69,7 +70,9 @@ class NewLetter extends Component {
     }
 
     onSubmit(){
-      let parentId = this.props.user.id
+      const {cookies} = this.props
+      let cookieValue = cookies.get("user")
+      let parentId = this.props.user.id || cookieValue
       let parentEmail = this.props.user.email
         const data = {
           parentId: parentId,
@@ -148,4 +151,4 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default connect(mapStateToProps)(NewLetter);
+export default withCookies(connect(mapStateToProps)(NewLetter));

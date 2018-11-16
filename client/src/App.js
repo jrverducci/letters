@@ -11,7 +11,6 @@ import TrackSanta from "./components/trackSanta";
 import LetterSent from "./components/letterSent";
 import Account from "./components/account";
 import UpdateAccount from "./components/updateAccount";
-import Logout from "./components/logout";
 import Snowstorm from 'react-snowstorm';
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
@@ -28,7 +27,6 @@ const AppRouter = () => (
       <Route path="/home" exact component={Home} />
       <Route path="/register" exact component={Register} />
       <Route path="/login" exact component={LogIn} />
-      <Route path="/logout" exact component={Logout} />
       <Route path="/" exact component={LandingPage} />
       <Route path="/letter" exact component={NewLetter} />
       <Route path="/letter/list" exact component={LetterList} />

@@ -115,8 +115,12 @@ class LogIn extends Component {
         userServices.login(data)
         .then((response) => {
             this.props.setUser(response.item[0])
+            return response
         })
-        .then(() => {
+        .then((response) => {
+            var now = new Date();
+               now.setMonth( now.getMonth() + 2 );
+                document.cookie = "user="+ response.item[0].id + ";expires="  + now.toUTCString() + ";"
             this.props.history.push('/home')
         })
         .catch((error) => {

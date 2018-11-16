@@ -5,6 +5,7 @@ import santa from '../components/Santa.png';
 import envelope from '../components/envelope.png';
 import mailbox from '../components/mailbox.png';
 import {Animated} from 'react-animated-css';
+import {withCookies} from 'react-cookie';
 
 class LetterSent extends Component {
     constructor(props){
@@ -53,4 +54,4 @@ class LetterSent extends Component {
   }
 }
 
-export default LetterSent;
+export default withCookies(LetterSent);

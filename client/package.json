@@ -9,6 +9,7 @@
     "react-animate-css": "0.0.1",
     "react-animated-css": "^1.0.4",
     "react-bootstrap": "^0.32.4",
+    "react-cookie": "^3.0.4",
     "react-dom": "^16.6.1",
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
