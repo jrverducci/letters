@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Home.css';
 import {Button} from 'react-bootstrap';
 import santa from '../components/Santa.png';
-import envelope from '../components/envelope.png';
+import letterLogo from '../components/lettersLogo2.png';
 import mailbox from '../components/mailbox.png';
 import {Animated} from 'react-animated-css';
 import {withCookies} from 'react-cookie';
@@ -30,7 +30,7 @@ class LetterSent extends Component {
         })
         setTimeout(function() { 
             this.setState({santa: true}) 
-        }.bind(this), 3000)
+        }.bind(this), 2000)
     }
 
     onHome() {
@@ -45,7 +45,7 @@ class LetterSent extends Component {
       <div className="Home-header">
       {!this.state.santa && <img src={mailbox} style={{height: '200px', width:'200px'}}></img>}
       <Animated animationIn="lightSpeedIn" animationOut="zoomOutUp" isVisible={this.state.visable}>
-    <img src={envelope} style={{height: '200px', width:'200px'}}></img>
+    <img src={letterLogo} style={{height: '180px', width:'320px'}}></img>
         </Animated> 
           {this.state.visable && <Button bsStyle="success" bsSize="large" onClick={this.onSend}>Send Letter</Button>}
         </div>

@@ -6,12 +6,14 @@ import * as moment from 'moment';
 import {connect} from 'react-redux';
 import swal from 'sweetalert2';
 import {withCookies} from 'react-cookie';
+import letterLogo from '../components/lettersLogo2.png';
 
 class LetterList extends Component {
     constructor(props){
         super(props)
         this.state = {
-          letters: []
+          letters: [],
+          parentId: ''
         }
         this.onHome = this.onHome.bind(this);
         this.onDelete = this.onDelete.bind(this);
@@ -23,6 +25,7 @@ class LetterList extends Component {
       const {cookies} = this.props
       let cookieValue = cookies.get("user")
       let id = this.props.user.id || cookieValue
+      this.setState({parentId: id})
       letterServices.readByParentId(id)
         .then((response) => {
           this.setState({
@@ -48,9 +51,7 @@ class LetterList extends Component {
   }
 
   onDelete(id, e){
-    const {cookies} = this.props
-      let cookieValue = cookies.get("user")
-    const parentId = this.props.user.id || cookieValue
+    const parentId = this.state.parentId
     swal({
       title: "Are you sure you want to delete this letter to Santa?",
       text: "You won't be able to get this letter back!",
@@ -99,8 +100,9 @@ class LetterList extends Component {
       <div className="Home-free">
       <Button bsStyle="danger" bsSize="small" onClick={this.onHome}>Go Home</Button>
         <div className="Home-header">
+        <img className="Home-logo" src={letterLogo} style={{height: '135px', width:'240px'}}></img>
         <h1>
-            (Letters Written To Santa) need font ideas
+            Letters Sent
           </h1>
           <Button bsStyle="success" bsSize="large" onClick={this.newLetter}>Write A New Letter</Button>
           <br></br>

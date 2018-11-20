@@ -3,7 +3,7 @@ const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const msg = {
   to: item.parentEmail,
-  from: 'Head Elf Twinkle <twinkle@santaletters.org>',
+  from: 'Letters to Santa - Elf Jingles R. VonSweets <jingles@santaletters.org>',
   templateId: process.env.LETTER_SENT_TEMPLATE,
   dynamic_template_data: {
     child: item.childName,

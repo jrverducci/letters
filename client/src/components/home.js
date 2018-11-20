@@ -4,6 +4,7 @@ import {Button, ButtonToolbar} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import {clearState} from '../actions/logout';
 import {withCookies} from 'react-cookie';
+import letterLogo from '../components/lettersLogo2.png';
 
 class Home extends Component {
     constructor(props){
@@ -40,9 +41,8 @@ class Home extends Component {
       <Button bsStyle="info" bsSize="xsmall" className="pull-left" onClick={this.onUpdate}>Update Account</Button>
       <Button bsStyle="danger" className="pull-right" bsSize="xsmall" onClick={this.onLogOut}>Log Out</Button>
         <div className="Home-header">
-        <h1>
-            (Letters To Santa) need font ideas
-          </h1>
+        <img className="Home-logo" src={letterLogo} style={{height: '180px', width:'320px'}}></img>
+        <br></br>
           <ButtonToolbar>
           <Button bsStyle="success" bsSize="large" onClick={this.onWrite}>Write New Letter</Button>
           <Button bsStyle="danger" bsSize="large" onClick={this.onFind}>Find Old Letter</Button>

@@ -50,9 +50,9 @@ class ViewLetter extends Component {
       <Button bsStyle="danger" bsSize="small" onClick={this.onHome}>Go Home</Button>
         <div className="Home-header">
         <div className="row">
-        <div className="col-sm-1"></div>
-        <div className="col-sm-10"> {letter}</div>
-        <div className="col-sm-1"></div>
+        <div className="col-sm-2"></div>
+        <div className="col-sm-8"> {letter}</div>
+        <div className="col-sm-2"></div>
         </div>
 
           <br></br>
