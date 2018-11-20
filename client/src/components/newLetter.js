@@ -3,6 +3,7 @@ import './Home.css';
 import { FormGroup, Form, FormControl, Button, Col, ButtonToolbar } from 'react-bootstrap';
 import * as letterServices from "../services/lettersServices";
 import * as emailService from "../services/emailServices";
+import * as userService from "../services/usersServices";
 import {connect} from "react-redux";
 import swal from 'sweetalert2';
 import {withCookies} from 'react-cookie';
@@ -12,7 +13,9 @@ class NewLetter extends Component {
         super(props)
         this.state = {
             childName: '',
-            letter: ''
+            letter: '',
+            parentId: '',
+            parentEmail: ''
         }
     
         this.handleChange = this.handleChange.bind(this); 
@@ -20,6 +23,20 @@ class NewLetter extends Component {
         this.goBack = this.goBack.bind(this);
         this.keyPressed = this.keyPressed.bind(this);
         this.submitCheck = this.submitCheck.bind(this);
+    }
+
+    componentDidMount(){
+      const {cookies} = this.props
+      let cookieValue = cookies.get("user")
+      let parentId = this.props.user.id || cookieValue
+      userService.getById(parentId)
+      .then((response) => {
+        let items = response.item[0]
+        this.setState({
+          parentId: items.id,
+          parentEmail: items.email
+        })
+      })
     }
 
     handleChange(e) {
@@ -70,18 +87,14 @@ class NewLetter extends Component {
     }
 
     onSubmit(){
-      const {cookies} = this.props
-      let cookieValue = cookies.get("user")
-      let parentId = this.props.user.id || cookieValue
-      let parentEmail = this.props.user.email
         const data = {
-          parentId: parentId,
+          parentId: this.state.parentId,
           childName: this.state.childName,
           letter: this.state.letter
         }
 
         const emailData = {
-          parentEmail: parentEmail,
+          parentEmail: this.state.parentEmail,
           childName: this.state.childName,
           letter: this.state.letter
         }
