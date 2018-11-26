@@ -25,7 +25,9 @@ class LandingPage extends Component {
         <h1>
             Letters To Santa
           </h1>
+          <div className="container-fluid">
           <img src={santaLogo} className="Home-logo" alt="logo" />
+          </div>
           <div className="row">
           <ButtonToolbar>
           <Button bsStyle="success" bsSize="large" onClick={this.onRegister}>Register</Button>
